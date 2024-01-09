@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to BitCoin Charter!</h1>
+        <p class="lead">Stay updated with minute-by-minute BitCoin updates.</p>
+        {% if not g.user %}
+            <p class="lead">Sign up now to start tracking BitCoin!</p>
+            <a class="btn btn-primary btn-lg" href="/signup" role="button">Sign Up</a>
+        {% else %}
+            <p class="lead">Hello, {{ g.user.username }}!</p>
+            <div class="text-center">
+                <a class="btn btn-success btn-lg" href="/home" role="button">View BitCoin Chart</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

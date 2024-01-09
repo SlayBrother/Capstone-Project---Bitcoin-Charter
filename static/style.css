@@ -1,0 +1,12 @@
+body {
+    /* Add vendor prefixes for broader browser support */
+    background: linear-gradient(to right, rgba(52, 152, 219, 0.8), rgba(231, 76, 60, 0.8));
+    /* Set fallback color in case gradients are not supported */
+    background-color: rgba(52, 152, 219, 0.8);
+    /* Ensure full height of the viewport */
+    height: 100vh;
+    /* Remove margin from body to prevent extra spacing */
+    margin: 0;
+    /* Specify font color for better contrast */
+    color: #fff;
+}

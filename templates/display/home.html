@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <canvas id="myChart" width="400" height="800"></canvas>
+    </div>        
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ labels | safe }},
+                datasets: [{
+                    label: 'Bitcoin Price per Minute',
+                    data: {{ values|safe }},
+                    borderWidth: 2,
+                    borderColor: 'black',
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: 'black',
+                    pointBorderColor: 'black',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        color: 'black', // Set the color for the x-axis line
+                    },
+                    y: {
+                        min: 40000,
+                        max: 50000,
+                        beginAtZero: false,
+                        color: 'black', // Set the color for the y-axis line
+                    }
+                },
+                elements: {
+                    line: {
+                        tension: 0.4,
+                        borderColor: 'black',
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                weight: 'bold',
+                                color: 'black',
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 20,
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
+
+

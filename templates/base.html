@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BitCoin Charter</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Add some margin or padding to create space between "Bitcoin Charter" and "Front Page" */
+        .navbar-header .d-flex span {
+            margin-right: 10px; /* Adjust the value as needed */
+        }
+    </style>
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    <nav class="navbar navbar-expand">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <span>Bitcoin Charter</span>
+                    <a href="/">Front Page</a>   
+                </div>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.endpoint != None %}
+                <li>
+                    <form class="navbar-form navbar-right" action="/users">
+                    </form>
+                </li>
+                {% endif %}
+                {% if not g.user %}
+                    <li><span style="margin-right: 10px;"><a href="/signup">Sign up</a></span></li>
+                    <li><a href="/login">Log in</a></li>
+                {% else %}
+                <li>
+                    <span style="margin-right: 10px;">{{ g.user.username }}</span>
+                </li>
+                <li><a href="/logout">Log out</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="flashes">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        {% endwith %}
+    </ul>
+
+    {% block content %}
+    {% endblock %}
+
+    </div>
+</body>
+
+</html>

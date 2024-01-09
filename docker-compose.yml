@@ -1,0 +1,44 @@
+version: "2.2"
+services:
+    ############################################## Grafana ##############################################
+    grafana:
+        image: grafana/grafana:latest-ubuntu
+        environment:
+            - GF_SECURITY_ADMIN_USER=grafana
+            - GF_SECURITY_ADMIN_PASSWORD=grafana
+        networks:
+            - default
+        ports:
+            - 3000:3000
+    
+    ############################################## InfluxDB ##############################################
+    influxdb:
+        image: influxdb:2.7.1-alpine
+        restart: unless-stopped
+        environment:
+            - DOCKER_INFLUXDB_INIT_USERNAME=admin
+            - DOCKER_INFLUXDB_INIT_PASSWORD=password
+            - DOCKER_INFLUXDB_INIT_ORG=btcCharter
+            - DOCKER_INFLUXDB_INIT_BUCKET=btcCharter
+        networks:
+            - default
+        ports:
+            - 8086:8086
+        volumes:
+            - infludb-data:/var/lib/influxdb2
+
+    ############################################## app ##############################################
+    app:
+        build: .
+        restart: unless-stopped
+        container_name: app1
+        networks:
+            - default
+        volumes:
+            - ./:/usr/local/src/
+        depends_on:
+            - influxdb
+
+
+volumes:
+    infludb-data:
